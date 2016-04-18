@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="JDBC" class="org.apache.log4j.jdbc.JDBCAppender">
+        <param name="URL" value="jdbc:mysql://localhost/cita?autoReconnect=true" />
+        <param name="Driver" value="com.mysql.jdbc.Driver" />
+        <param name="User" value="webdev" />
+        <param name="Password" value="webdev123" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="INSERT INTO t_log (log_date, log_level, log_location, log_message) 
+              VALUES ( '%d{ISO8601}','%-5p', '%C;%L', '%m' )" 
+            />
+        </layout>
+    </appender>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+              value="%d{ISO8601} %-5p (%C;%L) %m%n"
+            />
+        </layout>
+    </appender>
+<!--
+    <logger name="edu.uc.pmb">
+        <level value="trace"/>
+    </logger>
+
+    <logger name="org.datanucleus">
+        <level value="warn"/>
+    </logger>-->
+
+    <category name="DataNucleus">
+        <level value="info"/>
+    </category>
+
+    <root>
+<!--        <level value="debug"/>-->
+        <level value="trace"/>
+<!--        <level value="info"/>-->
+<!--        <level value="warn"/>-->
+<!--        <level value="error"/>-->
+<!--        <level value="fatal"/>-->
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="JDBC"/>
+    </root>
+
+</log4j:configuration>
